@@ -4,7 +4,7 @@ using ProjectAPI.SchemaModel;
 
 namespace ProjectAPI.meterData
 {
-    public class MeterDataServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : MeterDataInterface
+    public class MeterDataServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : IMeterData
     {
         private readonly IMongoCollection<MeterData> _MeterData = database.GetCollection<MeterData>(settings.Value.meter_data);
         private readonly IMongoCollection<MeterModel> _MeterMaster = database.GetCollection<MeterModel>(settings.Value.mst_meter);

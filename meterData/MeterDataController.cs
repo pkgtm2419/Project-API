@@ -6,9 +6,9 @@ namespace ProjectAPI.meterData
     [Route("api/[controller]")]
     [ApiController]
 
-    public class MeterDataController(MeterDataInterface _MeterDataInterface) : ControllerBase
+    public class MeterDataController(IMeterData _MeterDataInterface) : ControllerBase
     {
-        private readonly MeterDataInterface MeterDataInterface = _MeterDataInterface;
+        private readonly IMeterData MeterDataInterface = _MeterDataInterface;
 
         [HttpGet("{meterID}")]
         public async Task<ActionResult<ResMeterData>> GetMeterData(string meterID)

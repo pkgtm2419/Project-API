@@ -8,9 +8,9 @@ namespace ProjectAPI.masters.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CounterController(CounterInterface counterService) : ControllerBase
+    public class CounterController(ICounter counterService) : ControllerBase
     {
-        private readonly CounterInterface _counterService = counterService;
+        private readonly ICounter _counterService = counterService;
 
         [HttpGet]
         public async Task<ActionResult<CounterRes>> GetCounter()

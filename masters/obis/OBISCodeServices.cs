@@ -4,7 +4,7 @@ using ProjectAPI.SchemaModel;
 
 namespace ProjectAPI.masters.obis
 {
-    public class OBISCodeServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : OBISCodeInterface
+    public class OBISCodeServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : IOBISCode
     {
         private readonly IMongoCollection<OBISCodeModel> _mst_obis = database.GetCollection<OBISCodeModel>(settings.Value.mst_obis);
 

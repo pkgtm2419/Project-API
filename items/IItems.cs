@@ -2,7 +2,7 @@
 
 namespace ProjectAPI.items
 {
-    public interface ItemsInterface
+    public interface IItems
     {
         Task<ResItems> GetItems();
     }

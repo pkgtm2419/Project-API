@@ -7,9 +7,9 @@ namespace ProjectAPI.masters.obis
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OBISCodeController(OBISCodeInterface Interface) : ControllerBase
+    public class OBISCodeController(IOBISCode Interface) : ControllerBase
     {
-        private readonly OBISCodeInterface _OBISCodeInterface = Interface;
+        private readonly IOBISCode _OBISCodeInterface = Interface;
 
         [HttpGet]
         public async Task<ActionResult<ResOBISCodeList>> GetOBISCodeAsync()

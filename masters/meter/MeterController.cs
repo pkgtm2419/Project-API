@@ -7,9 +7,9 @@ namespace ProjectAPI.masters.meter
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MeterController(MeterInterface meterService) : ControllerBase
+    public class MeterController(IMeter meterService) : ControllerBase
     {
-        private readonly MeterInterface _meterService = meterService;
+        private readonly IMeter _meterService = meterService;
 
         [HttpGet]
         public async Task<ActionResult<MeterRes>> GetMetersAsync()

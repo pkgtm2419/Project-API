@@ -4,7 +4,7 @@ using ProjectAPI.SchemaModel;
 
 namespace ProjectAPI.items
 {
-    public class ItemsServices : ItemsInterface
+    public class ItemsServices : IItems
     {
         private readonly IMongoCollection<ItemsModel> _items;
 

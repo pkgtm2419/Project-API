@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace ProjectAPI.masters.meter
 {
-    public class MeterServices : MeterInterface
+    public class MeterServices : IMeter
     {
         private readonly IMongoCollection<MeterModel> _mst_meters;
 

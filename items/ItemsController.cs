@@ -6,9 +6,9 @@ namespace ProjectAPI.items
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemsController(ItemsInterface itemsServices) : ControllerBase
+    public class ItemsController(IItems itemsServices) : ControllerBase
     {
-        private readonly ItemsInterface _itemsServices = itemsServices;
+        private readonly IItems _itemsServices = itemsServices;
 
         [HttpGet]
         public async Task<ActionResult<ResItems>> GetItems()

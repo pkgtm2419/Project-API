@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAPI.masters.counter
 {
-    public class CounterServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : CounterInterface
+    public class CounterServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : ICounter
     {
         private readonly IMongoCollection<CounterModel> _counter = database.GetCollection<CounterModel>(settings.Value.counter);
 

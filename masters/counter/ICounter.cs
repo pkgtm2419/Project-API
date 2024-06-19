@@ -3,7 +3,7 @@ using ProjectAPI.SchemaModel;
 
 namespace ProjectAPI.masters.counter
 {
-    public interface CounterInterface
+    public interface ICounter
     {
         Task<CounterRes> GetCounterAsync();
     }

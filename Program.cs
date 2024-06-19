@@ -28,11 +28,11 @@ builder.Services.Configure<MongoDBSettingsModel>(builder.Configuration.GetSectio
 
 builder.Services.AddDatabaseServices(builder.Configuration);
 
-builder.Services.AddScoped<MeterInterface, MeterServices>();
-builder.Services.AddScoped<OBISCodeInterface, OBISCodeServices>();
-builder.Services.AddScoped<CounterInterface, CounterServices>();
-builder.Services.AddScoped<ItemsInterface, ItemsServices>();
-builder.Services.AddScoped<MeterDataInterface, MeterDataServices>();
+builder.Services.AddScoped<IMeter, MeterServices>();
+builder.Services.AddScoped<IOBISCode, OBISCodeServices>();
+builder.Services.AddScoped<ICounter, CounterServices>();
+builder.Services.AddScoped<IItems, ItemsServices>();
+builder.Services.AddScoped<IMeterData, MeterDataServices>();
 
 var app = builder.Build();
 app.UseCompanyHeaderMiddleware();
