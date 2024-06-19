@@ -12,6 +12,9 @@ namespace ProjectAPI.SchemaModel
         public string? name { get; set; }
         public string? displayName { get; set; }
         public string? unit { get; set; }
+        public int? interfaceClass { get; set; }
+        public int? ICVersion { get; set; }
+        public int? MethodID { get; set; }
     }
     public class OBISListModel
     {
@@ -21,9 +24,7 @@ namespace ProjectAPI.SchemaModel
     public class ResOBISCodeList
     {
         public int status { get; set; }
-
         public string message { get; set; }
-
         public List<OBISCodeModel> data { get; set; }
     }
 }

@@ -7,5 +7,6 @@ namespace ProjectAPI.masters.meter
     public interface MeterInterface
     {
         Task<MeterRes> GetMetersAsync();
+        Task<MeterRes> GetMetersByMeterIDAsync(int meterID);
     }
 }

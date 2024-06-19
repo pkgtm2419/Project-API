@@ -14,9 +14,12 @@ namespace ProjectAPI.items
         public async Task<ActionResult<ResItems>> GetItems()
         {
             var res = await _itemsServices.GetItems();
-            return res.status == 200 ? Ok(res) :
-                   res.status == 404 ? NotFound(res) :
-                   StatusCode(500, res);
+            return res.status switch
+                {
+                    200 => Ok(res),
+                    404 => NotFound(res),
+                    _ => StatusCode(500, res)
+                };
         }
     }
 }

@@ -42,5 +42,33 @@ namespace ProjectAPI.masters.meter
             }
             return res;
         }
+
+        public async Task<MeterRes> GetMetersByMeterIDAsync(int meterID)
+        {
+            MeterRes res = new MeterRes();
+            try
+            {
+                FilterDefinition<MeterModel> filter = Builders<MeterModel>.Filter.Eq("MeterID", meterID);
+                List<MeterModel> data = await _mst_meters.Find(filter).ToListAsync();
+                if (data.Count > 0)
+                {
+                    res.status = 200;
+                    res.data = data;
+                    res.message = "success";
+                }
+                else
+                {
+                    res.status = 404;
+                    res.message = "no data found";
+                }
+            }
+            catch (Exception ex)
+            {
+                res.status = 500;
+                res.message = $"something went wrong: {ex.Message}";
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return res;
+        }
     }
 }

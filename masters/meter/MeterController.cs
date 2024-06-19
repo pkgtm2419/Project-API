@@ -22,5 +22,17 @@ namespace ProjectAPI.masters.meter
                 _ => StatusCode(500, res)
             };
         }
+
+        [HttpGet("{meterID}")]
+        public async Task<ActionResult<MeterRes>> GetMetersByMeterIDAsync(int meterID)
+        {
+            var res = await _meterService.GetMetersByMeterIDAsync(meterID);
+            return res.status switch
+            {
+                200 => Ok(res),
+                404 => NotFound(res),
+                _ => StatusCode(500, res)
+            };
+        }
     }
 }
