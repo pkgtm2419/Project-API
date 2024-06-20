@@ -13,6 +13,7 @@ using ProjectAPI.items;
 using Microsoft.AspNetCore.Diagnostics;
 using ProjectAPI.meterData;
 using ProjectAPI._Helpers;
+using ProjectAPI.masters.appliances;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,9 +34,9 @@ builder.Services.AddScoped<IOBISCode, OBISCodeServices>();
 builder.Services.AddScoped<ICounter, CounterServices>();
 builder.Services.AddScoped<IItems, ItemsServices>();
 builder.Services.AddScoped<IMeterData, MeterDataServices>();
+builder.Services.AddScoped<IAppliances, AppliancesServices>();
 
 var app = builder.Build();
-app.UseCompanyHeaderMiddleware();
 
 if (app.Environment.IsDevelopment())
 {
@@ -48,6 +49,7 @@ if (app.Environment.IsDevelopment())
         };
     });
 }
+app.UseCompanyHeaderMiddleware();
 
 app.UseRouting();
 
