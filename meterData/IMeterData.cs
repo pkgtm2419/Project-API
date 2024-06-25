@@ -5,6 +5,6 @@ namespace ProjectAPI.meterData
     public interface IMeterData
     {
         Task<ResMeterData> GetMeterData(string meterID);
-        Task<bool> MeterExist(string meterID);
+        Task<List<MeterModel>> MeterExist(string meterID);
     }
 }

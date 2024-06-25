@@ -73,22 +73,22 @@ namespace ProjectAPI.SchemaModel
     public class Initialization
     {
         [BsonElement("resTimeOut")]
-        public int ResTimeOut { get; set; }
+        public uint ResTimeOut { get; set; }
 
         [BsonElement("resInterFrameTimeOut")]
-        public int ResInterFrameTimeOut { get; set; }
+        public ushort ResInterFrameTimeOut { get; set; }
 
         [BsonElement("MaxLinkLayerBuffer")]
-        public int MaxLinkLayerBuffer { get; set; }
+        public ushort MaxLinkLayerBuffer { get; set; }
 
         [BsonElement("MaxAppLayerBuffer")]
-        public int MaxAppLayerBuffer { get; set; }
+        public uint MaxAppLayerBuffer { get; set; }
 
         [BsonElement("cipheringSupport")]
-        public int CipheringSupport { get; set; }
+        public byte CipheringSupport { get; set; }
 
         [BsonElement("ChannelNo")]
-        public int ChannelNo { get; set; }
+        public ushort ChannelNo { get; set; }
 
         [BsonElement("baudRate")]
         public int BaudRate { get; set; }

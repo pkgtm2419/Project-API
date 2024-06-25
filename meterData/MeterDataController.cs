@@ -13,7 +13,8 @@ namespace ProjectAPI.meterData
         [HttpGet("{meterID}")]
         public async Task<ActionResult<ResMeterData>> GetMeterData(string meterID)
         {
-            if (await MeterExist(meterID))
+            var meter = await MeterExist(meterID);
+            if (meter.Count > 0)
             {
 
                 var res = await MeterDataInterface.GetMeterData(meterID);
@@ -33,8 +34,9 @@ namespace ProjectAPI.meterData
             }
         }
 
-        public async Task<bool> MeterExist(string meterID)
+        public async Task<List<MeterModel>> MeterExist(string meterID)
         {
+            Console.WriteLine(meterID);
             return await MeterDataInterface.MeterExist(meterID);
         }
     }

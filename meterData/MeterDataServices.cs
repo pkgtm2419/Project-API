@@ -34,18 +34,18 @@ namespace ProjectAPI.meterData
             return res;
         }
 
-        public async Task<bool> MeterExist(string meterID)
+        public async Task<List<MeterModel>> MeterExist(string meterID)
         {
             try
             {
                 FilterDefinition<MeterModel> filter = Builders<MeterModel>.Filter.Eq("meterID", meterID);
                 List<MeterModel> data = await _MeterMaster.Find(filter).ToListAsync();
-                return data.Count > 0;
+                return data;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return new List<MeterModel>();
             }
         }
 

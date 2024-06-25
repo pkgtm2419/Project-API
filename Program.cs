@@ -12,8 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using ProjectAPI.items;
 using Microsoft.AspNetCore.Diagnostics;
 using ProjectAPI.meterData;
-using ProjectAPI._Helpers;
 using ProjectAPI.masters.appliances;
+using ProjectAPI.meterData.GetMeterData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +35,7 @@ builder.Services.AddScoped<ICounter, CounterServices>();
 builder.Services.AddScoped<IItems, ItemsServices>();
 builder.Services.AddScoped<IMeterData, MeterDataServices>();
 builder.Services.AddScoped<IAppliances, AppliancesServices>();
+builder.Services.AddScoped<IGetMeterData, GetMeterDataServices>();
 
 var app = builder.Build();
 
@@ -49,7 +50,6 @@ if (app.Environment.IsDevelopment())
         };
     });
 }
-app.UseCompanyHeaderMiddleware();
 
 app.UseRouting();
 
@@ -101,11 +101,3 @@ app.UseStatusCodePages(context =>
 app.MapControllers();
 
 app.Run();
-
-public static class CompanyHeaderMiddlewareExtensions
-{
-    public static IApplicationBuilder UseCompanyHeaderMiddleware(this IApplicationBuilder builder)
-    {
-        return builder.UseMiddleware<HeaderMiddleware>();
-    }
-}
