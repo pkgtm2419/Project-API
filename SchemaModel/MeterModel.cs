@@ -78,16 +78,16 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("resInterFrameTimeOut")]
         public ushort ResInterFrameTimeOut { get; set; }
 
-        [BsonElement("MaxLinkLayerBuffer")]
+        [BsonElement("maxLinkLayerBuffer")]
         public ushort MaxLinkLayerBuffer { get; set; }
 
-        [BsonElement("MaxAppLayerBuffer")]
+        [BsonElement("maxAppLayerBuffer")]
         public uint MaxAppLayerBuffer { get; set; }
 
         [BsonElement("cipheringSupport")]
         public byte CipheringSupport { get; set; }
 
-        [BsonElement("ChannelNo")]
+        [BsonElement("channelNo")]
         public ushort ChannelNo { get; set; }
 
         [BsonElement("baudRate")]
@@ -109,25 +109,37 @@ namespace ProjectAPI.SchemaModel
         public int WPortServer { get; set; }
 
         [BsonElement("logicalAddr")]
-        public int LogicalAddr { get; set; }
+        public ushort LogicalAddr { get; set; }
+
+        [BsonElement("serverPhysicalDeviceID")]
+        public ushort ServerPhysicalDeviceID { get; set; }
 
         [BsonElement("physicalAddr")]
         public int PhysicalAddr { get; set; }
 
+        [BsonElement("clientID")]
+        public byte ClientID { get; set; }
+
+        [BsonElement("authTagLen")]
+        public byte AuthTagLen { get; set; }
+
+        [BsonElement("associationType")]
+        public byte AssociationType { get; set; }
+
         [BsonElement("negoParams")]
-        public int NegoParams { get; set; }
+        public byte NegoParams { get; set; }
 
         [BsonElement("windowTx")]
-        public int WindowTx { get; set; }
+        public byte WindowTx { get; set; }
 
         [BsonElement("windowRx")]
-        public int WindowRx { get; set; }
+        public byte WindowRx { get; set; }
 
         [BsonElement("InfoLenTx")]
-        public int InfoLenTx { get; set; }
+        public byte InfoLenTx { get; set; }
 
         [BsonElement("InfoLenRx")]
-        public int InfoLenRx { get; set; }
+        public byte InfoLenRx { get; set; }
 
         [BsonElement("appContext")]
         public int AppContext { get; set; }
@@ -139,7 +151,10 @@ namespace ProjectAPI.SchemaModel
         public string HLSKeyPassword { get; set; }
 
         [BsonElement("clientChallengeLen")]
-        public int ClientChallengeLen { get; set; }
+        public uint ClientChallengeLen { get; set; }
+
+        [BsonElement("dedicatedKey")]
+        public string DedicatedKey { get; set; }
 
         [BsonElement("clientChallengeKey")]
         public string ClientChallengeKey { get; set; }
@@ -147,26 +162,38 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("clientSystemTitle")]
         public string ClientSystemTitle { get; set; }
 
-        [BsonElement("AuthenticationKey")]
+        [BsonElement("authenticationKey")]
         public string AuthenticationKey { get; set; }
 
-        [BsonElement("EncryptionKey")]
+        [BsonElement("encryptionKey")]
         public string EncryptionKey { get; set; }
 
-        [BsonElement("SecurityObjectVer")]
+        [BsonElement("securityObjectVer")]
         public int SecurityObjectVer { get; set; }
 
-        [BsonElement("secPolicy")]
-        public int SecPolicy { get; set; }
+        [BsonElement("securityPolicyVersion")]
+        public byte SecurityPolicyVersion { get; set; }
+
+        [BsonElement("securityPolicy")]
+        public byte SecurityPolicy { get; set; }
+
+        [BsonElement("serverAddressLength")]
+        public byte ServerAddressLength { get; set; }
 
         [BsonElement("AARQSecurityControl")]
-        public int AARQSecurityControl { get; set; }
+        public byte AARQSecurityControl { get; set; }
+
+        [BsonElement("frameCounter")]
+        public uint FrameCounter { get; set; }
 
         [BsonElement("secSuite")]
         public int SecSuite { get; set; }
 
+        [BsonElement("maxAPDU")]
+        public ushort MaximumAPDU { get; set; }
+
         [BsonElement("UserID")]
-        public int UserID { get; set; }
+        public byte UserID { get; set; }
 
         [BsonElement("userFramectr")]
         public int UserFramectr { get; set; }
@@ -174,10 +201,9 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("secPolicyMenu")]
         public SecPolicyMenu SecPolicyMenu { get; set; }
     }
-
     public class SecPolicyMenu
     {
-        [BsonElement("SelectMenu")]
+        [BsonElement("selectMenu")]
         public int SelectMenu { get; set; }
 
         [BsonElement("moreSecurityChoices")]

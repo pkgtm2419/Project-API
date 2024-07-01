@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Threading.Channels;
+using System.Diagnostics.Metrics;
 
 namespace ProjectAPI.meterData.GetMeterData
 {
@@ -243,7 +244,7 @@ namespace ProjectAPI.meterData.GetMeterData
             /* ////////////////////// HDLC Connection establishment ///////////////////////// */
             if ((phy.commProfile == 1) || (phy.commProfile == 2) || (phy.commProfile == 7) || (phy.commProfile == 8))
             {
-                if (hdlc.DisplayHDLCMenu() == false) return;
+                if (hdlc.DisplayHDLCMenu(Meter.Initialization) == false) return;
                 // function: sendSNRM 	
 
                 ret = DLMSClient.setParamsHDLC(clientHandle,
@@ -1310,9 +1311,7 @@ struct _PHY
     public TCPUDP tcpUdp;
     public bool DisplayPhyMenu(Initialization _Initialization)
     {
-        /*
-        Gets the physical layer parameters based on communication profile
-        */
+        /* Gets the physical layer parameters based on communication profile */
         try
         {
             /*Console.WriteLine(_Initialization.AuthenticationKey);
@@ -1352,15 +1351,15 @@ struct _PHY
                 case 4: /* UDP */
                     {
                         // Console.Write("\nEnter Client IP address: ");
-                        tcpUdp.client_ipAddr = Encoding.ASCII.GetBytes((_Initialization.ClientIpAddr + "\0"));//"192.168.0.89"); //Console.ReadLine());
+                        tcpUdp.client_ipAddr = Encoding.ASCII.GetBytes((_Initialization.ClientIpAddr + "\0"));
                         // Console.Write("\nEnter Server IP address: ");
-                        tcpUdp.server_ipAddr = Encoding.ASCII.GetBytes((_Initialization.ServerIpAddr + "\0"));//"192.168.0.89");//Console.ReadLine());
+                        tcpUdp.server_ipAddr = Encoding.ASCII.GetBytes((_Initialization.ServerIpAddr + "\0"));
                         // Console.Write("\nEnter Server Port number: ");
-                        tcpUdp.serverPort = Convert.ToUInt16(_Initialization.ServerPort);//"4059"); //Console.ReadLine());
+                        tcpUdp.serverPort = Convert.ToUInt16(_Initialization.ServerPort);
                         // Console.Write("\nEnter Client wrapper Port ID: ");
-                        tcpUdp.wPort_Client = Convert.ToUInt16(_Initialization.WPortClient);//"16");//Console.ReadLine());
+                        tcpUdp.wPort_Client = Convert.ToUInt16(_Initialization.WPortClient);
                         // Console.Write("\nEnter Server wrapper port ID: ");
-                        tcpUdp.wPort_Server = Convert.ToUInt16(_Initialization.WPortServer);//"1"); //Console.ReadLine());
+                        tcpUdp.wPort_Server = Convert.ToUInt16(_Initialization.WPortServer);
                         serOpt.name = Encoding.ASCII.GetBytes("\0");
                     }
                     break;
@@ -1368,15 +1367,11 @@ struct _PHY
                 case 8: /* SERIAL_UDP */
                     {
                         Console.Write("\nEnter Client IP address: ");
-                        tcpUdp.client_ipAddr = Encoding.ASCII.GetBytes(Console.ReadLine() + "\0");//"192.168.0.89"); //Console.ReadLine());
+                        tcpUdp.client_ipAddr = Encoding.ASCII.GetBytes(_Initialization.ClientIpAddr + "\0");
                         Console.Write("\nEnter Server IP address: ");
-                        tcpUdp.server_ipAddr = Encoding.ASCII.GetBytes(Console.ReadLine() + "\0");//"192.168.0.89");//Console.ReadLine());
+                        tcpUdp.server_ipAddr = Encoding.ASCII.GetBytes(_Initialization.ServerIpAddr + "\0");
                         Console.Write("\nEnter Server Port number: ");
-                        tcpUdp.serverPort = Convert.ToUInt16(Console.ReadLine());//"4059"); //Console.ReadLine());
-                                                                                 //Console.Write("\nEnter Client wrapper Port ID: ");
-                                                                                 //tcpUdp.wPort_Client = Convert.ToUInt16(Console.ReadLine());//"16");//Console.ReadLine());
-                                                                                 //Console.Write("\nEnter Server wrapper port ID: ");
-                                                                                 //tcpUdp.wPort_Server = Convert.ToUInt16(Console.ReadLine());//"1"); //Console.ReadLine());
+                        tcpUdp.serverPort = Convert.ToUInt16(_Initialization.ServerPort);
                         serOpt.name = Encoding.ASCII.GetBytes("\0");
                     }
                     break;
@@ -1406,13 +1401,12 @@ struct _HDLC
     public ushort InfoLenTx;
     public ushort InfoLenRx;
 
-    public bool DisplayHDLCMenu()
+    public bool DisplayHDLCMenu(Initialization Meter)
     {
         try
         {
-            /*
-            Gets the parameters for HDLC communication
-            */
+            /* Gets the parameters for HDLC communication */
+            Console.WriteLine("Meter:  " + Meter.ClientIpAddr);
             Console.Write("\nEnter Client ID: ");
             clientAddr = Convert.ToByte(Console.ReadLine());
             Console.WriteLine("\n-- Server Address Length -- ");
@@ -1421,8 +1415,7 @@ struct _HDLC
             Console.WriteLine("Four Byte addressing\t4");
             Console.Write("Enter Choice for Server Address Length: ");
             serverAddrLen = Convert.ToByte(Console.ReadLine());
-            if (!((serverAddrLen == 1) || (serverAddrLen == 2)
-                || (serverAddrLen == 4)))
+            if (!((serverAddrLen == 1) || (serverAddrLen == 2) || (serverAddrLen == 4)))
             {
                 Console.WriteLine("\nInvalid choice for Server Address Length");
                 return false;

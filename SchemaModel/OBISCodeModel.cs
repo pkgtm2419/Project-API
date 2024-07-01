@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using DLMS_CLIENT.DLMSStruct;
 
 namespace ProjectAPI.SchemaModel
 {
@@ -9,6 +10,7 @@ namespace ProjectAPI.SchemaModel
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
         public required string obisCode { get; set; }
+        public OBISCODE? obisObject { get; set; }
         public string? name { get; set; }
         public string? displayName { get; set; }
         public string? unit { get; set; }
