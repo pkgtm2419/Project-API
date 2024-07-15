@@ -16,7 +16,6 @@ namespace ProjectAPI.meterData
             {
                 FilterDefinition<MeterData> filter = Builders<MeterData>.Filter.Eq("meterID", meterID);
                 List<MeterData> data = await _MeterData.Find(filter).ToListAsync();
-                Console.WriteLine(data.Count);
                 if(data.Count > 0)
                 {
                     res.status = 200;
