@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using ProjectAPI.meterData;
 using ProjectAPI.masters.appliances;
 using ProjectAPI.meterData.GetMeterData;
+using ProjectAPI.masters.customer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,7 @@ builder.Services.AddScoped<IItems, ItemsServices>();
 builder.Services.AddScoped<IMeterData, MeterDataServices>();
 builder.Services.AddScoped<IAppliances, AppliancesServices>();
 builder.Services.AddScoped<IGetMeterData, GetMeterDataServices>();
+builder.Services.AddScoped<ICustomer, CustomerServices>();
 
 var app = builder.Build();
 

@@ -45,13 +45,25 @@ namespace ProjectAPI.SchemaModel
         public string CustomerID { get; set; }
 
         [BsonElement("stage")]
-        public int Stage { get; set; }
+        public Double? Stage { get; set; }
 
         [BsonElement("emailID")]
         public string EmailID { get; set; }
 
+        [BsonElement("profilePicture")]
+        public string? ProfilePicture { get; set; }
+
+        [BsonElement("area")]
+        public string? Area { get; set; }
+
+        [BsonElement("service")]
+        public string? Service { get; set; }
+
         [BsonElement("securityDeposit")]
-        public string SecurityDeposit { get; set; }
+        public int? SecurityDeposit { get; set; }
+
+        [BsonElement("userValidation")]
+        public string UserValidation { get; set; }
 
         [BsonElement("approvals")]
         public string Approvals { get; set; }
@@ -63,7 +75,7 @@ namespace ProjectAPI.SchemaModel
         public string FatherName { get; set; }
 
         [BsonElement("DOB")]
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [BsonElement("address1")]
         public string Address1 { get; set; }
@@ -107,6 +119,12 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("pinCode")]
         public string PinCode { get; set; }
 
+        [BsonElement("variant")]
+        public string Variant { get; set; }
+
+        [BsonElement("category")]
+        public string Category { get; set; }
+
         [BsonElement("meterInstallation")]
         public string MeterInstallation { get; set; }
 
@@ -117,10 +135,10 @@ namespace ProjectAPI.SchemaModel
         public string CreatedBy { get; set; }
 
         [BsonElement("createdAt")]
-        public DateTime CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [BsonElement("updatedAt")]
-        public DateTime UpdatedAt { get; set; }
+        public string UpdatedAt { get; set; }
 
         [BsonElement("__v")]
         public int Version { get; set; }
@@ -147,7 +165,7 @@ namespace ProjectAPI.SchemaModel
         public bool Validated { get; set; }
 
         [BsonElement("validatedAt")]
-        public DateTime ValidatedAt { get; set; }
+        public string ValidatedAt { get; set; }
 
         [BsonElement("validatedBy")]
         public string ValidatedBy { get; set; }
@@ -169,6 +187,12 @@ namespace ProjectAPI.SchemaModel
 
         [BsonElement("district")]
         public string District { get; set; }
+
+        [BsonElement("circle")]
+        public string Circle { get; set; }
+
+        [BsonElement("city")]
+        public string City { get; set; }
 
         [BsonElement("pincode")]
         public string Pincode { get; set; }
@@ -196,10 +220,19 @@ namespace ProjectAPI.SchemaModel
 
         [BsonElement("branch")]
         public string Branch { get; set; }
+
+        [BsonElement("city")]
+        public string City { get; set; }
+
+        [BsonElement("pincode")]
+        public string Pincode { get; set; }
     }
 
     public class Payment
     {
+        [BsonElement("paymentDue")]
+        public PaymentDue PaymentDue { get; set; }
+
         [BsonElement("paymentReceived")]
         public PaymentReceived PaymentReceived { get; set; }
     }
@@ -213,10 +246,10 @@ namespace ProjectAPI.SchemaModel
         public string ValidatedBy { get; set; }
 
         [BsonElement("validatedAt")]
-        public DateTime ValidatedAt { get; set; }
+        public string ValidatedAt { get; set; }
 
         [BsonElement("amount")]
-        public double Amount { get; set; }
+        public double? Amount { get; set; }
 
         [BsonElement("mode")]
         public string Mode { get; set; }
@@ -227,8 +260,47 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("bankBranch")]
         public string BankBranch { get; set; }
 
+        [BsonElement("bankName")]
+        public string BankName { get; set; }
+
         [BsonElement("paymentDate")]
-        public DateTime PaymentDate { get; set; }
+        public string PaymentDate { get; set; }
+
+        [BsonElement("remarks")]
+        public string Remarks { get; set; }
+    }
+
+    public class PaymentDue
+    {
+        [BsonElement("validated")]
+        public bool Validated { get; set; }
+
+        [BsonElement("validatedBy")]
+        public string ValidatedBy { get; set; }
+
+        [BsonElement("validatedAt")]
+        public string ValidatedAt { get; set; }
+
+        [BsonElement("energyLoad")]
+        public int? EnergyLoad { get; set; }
+
+        [BsonElement("meterType")]
+        public string MeterType { get; set; }
+
+        [BsonElement("securityAmount")]
+        public int? SecurityAmount { get; set; }
+
+        [BsonElement("meterAmount")]
+        public int? MeterAmount { get; set; }
+
+        [BsonElement("installationPrice")]
+        public int? InstallationPrice { get; set; }
+
+        [BsonElement("otherAmount")]
+        public int? OtherAmount { get; set; }
+
+        [BsonElement("totalAmount")]
+        public int? TotalAmount { get; set; }
 
         [BsonElement("remarks")]
         public string Remarks { get; set; }
@@ -253,7 +325,7 @@ namespace ProjectAPI.SchemaModel
         public string Link { get; set; }
 
         [BsonElement("uploadedAt")]
-        public DateTime? UploadedAt { get; set; }
+        public string? UploadedAt { get; set; }
 
         [BsonElement("validated")]
         public bool Validated { get; set; }
@@ -262,6 +334,16 @@ namespace ProjectAPI.SchemaModel
         public string ValidatedBy { get; set; }
 
         [BsonElement("validatedAt")]
-        public DateTime? ValidatedAt { get; set; }
+        public string? ValidatedAt { get; set; }
+
+        [BsonElement("remarks")]
+        public string? Remarks { get; set; }
+    }
+
+    public class ResCustomer
+    {
+        public int status { get; set; }
+        public string message { get; set; }
+        public List<CustomerModel> data { get; set; }
     }
 }
