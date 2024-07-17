@@ -15,8 +15,9 @@ namespace ProjectAPI.masters.Controllers
         private readonly ICounter _counterService = counterService;
 
         [HttpGet]
-        public async Task<ActionResult<CounterRes>> GetCounter()
+        public async Task<ActionResult<CounterRes>> GetCounter([FromHeader] string company)
         {
+            Console.WriteLine(company);
             var res = await _counterService.GetCounterAsync();
             return res.status switch
                 {

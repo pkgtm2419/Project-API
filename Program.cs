@@ -21,6 +21,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using ProjectAPI.UserAuthentication;
 using System.Text.Json;
+using ProjectAPI._Helpers.Hashing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,6 +91,7 @@ builder.Services.AddScoped<IGetMeterData, GetMeterDataServices>();
 builder.Services.AddScoped<ICustomer, CustomerServices>();
 builder.Services.AddScoped<IItems, ItemsServices>();
 builder.Services.AddScoped<IUsers, UsersServices>();
+builder.Services.AddScoped<IHashing, HashingServices>();
 
 var app = builder.Build();
 

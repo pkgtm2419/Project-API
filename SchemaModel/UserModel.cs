@@ -10,7 +10,7 @@ namespace ProjectAPI.SchemaModel
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [BsonElement("firstName")]
         public string FirstName { get; set; }
@@ -37,10 +37,10 @@ namespace ProjectAPI.SchemaModel
         public UsersAddress UserAddress { get; set; }
 
         [BsonElement("companyID")]
-        public string CompanyID { get; set; }
+        public string? CompanyID { get; set; }
 
         [BsonElement("ecbCode")]
-        public string EcbCode { get; set; }
+        public string? EcbCode { get; set; }
 
         [BsonElement("stateCode")]
         public string StateCode { get; set; }
@@ -58,28 +58,28 @@ namespace ProjectAPI.SchemaModel
         public string DateOfJoining { get; set; }
 
         [BsonElement("profilePicture")]
-        public string ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
 
         [BsonElement("alerts")]
         public Alerts Alerts { get; set; }
 
         [BsonElement("isActive")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; } = true;
 
         [BsonElement("oldPasswords")]
-        public List<string> OldPasswords { get; set; }
+        public List<string>? OldPasswords { get; set; }
 
         [BsonElement("createdAt")]
-        public string CreatedAt { get; set; }
+        public string? CreatedAt { get; set; }
 
         [BsonElement("createdBy")]
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
         [BsonElement("updatedAt")]
-        public string UpdatedAt { get; set; }
+        public string? UpdatedAt { get; set; }
 
         [BsonElement("updatedBy")]
-        public string UpdatedBy { get; set; }
+        public string? UpdatedBy { get; set; }
     }
 
     public class UsersAddress
