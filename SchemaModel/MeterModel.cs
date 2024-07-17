@@ -23,6 +23,15 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("meterCategory")]
         public string MeterCategory { get; set; }
 
+        [BsonElement("lotNo")]
+        public string LotNo { get; set; }
+
+        [BsonElement("billType")]
+        public string BillType { get; set; }
+
+        [BsonElement("warehouseCode")]
+        public string WarehouseCode { get; set; }
+
         [BsonElement("category")]
         public string Category { get; set; }
 
@@ -31,6 +40,9 @@ namespace ProjectAPI.SchemaModel
 
         [BsonElement("initialization")]
         public Initialization Initialization { get; set; }
+
+        [BsonElement("billingDateConfiguration")]
+        public BillingDateDetails BillingDateConfiguration { get; set; }
 
         [BsonElement("createdBy")]
         public string CreatedBy { get; set; }
@@ -65,9 +77,34 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("createdAt")]
         public string CreatedAt { get; set; }
 
-
         [BsonElement("updatedAt")]
         public string UpdatedAt { get; set; }
+    }
+
+    public class BillingDateDetails
+    {
+        [BsonElement("accessSelector")]
+        public byte AccessSelector { get; set; }
+
+        [BsonElement("rangeData")]
+        public RangeData RangeData { get; set; }
+
+        [BsonElement("entryData")]
+        public EntryData EntryData { get; set; }
+    }
+
+    public class RangeData
+    {
+        [BsonElement("fromDate")]
+        public string FromDate { get; set; }
+
+        [BsonElement("toDate")]
+        public string ToDate { get; set; }
+    }
+
+    public class EntryData
+    {
+
     }
 
     public class Initialization
@@ -93,32 +130,56 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("baudRate")]
         public int BaudRate { get; set; }
 
-        [BsonElement("client_ipAddr")]
+        [BsonElement("serviceClass")]
+        public byte ServiceClass { get; set; }
+
+        [BsonElement("securityKeys")]
+        public SecurityKeys SecurityKeys { get; set; }
+
+        [BsonElement("PC")]
+        public Associasion PC { get; set; }
+
+        [BsonElement("MR")]
+        public Associasion MR { get; set; }
+
+        [BsonElement("US")]
+        public Associasion US { get; set; }
+
+        [BsonElement("PUSH")]
+        public Associasion PUSH { get; set; }
+
+        [BsonElement("FW")]
+        public Associasion FW { get; set; }
+
+        [BsonElement("clientIpAddr")]
         public string ClientIpAddr { get; set; }
 
-        [BsonElement("server_ipAddr")]
+        [BsonElement("serverIpAddr")]
         public string ServerIpAddr { get; set; }
 
         [BsonElement("serverPort")]
         public int ServerPort { get; set; }
 
-        [BsonElement("wPort_Client")]
+        [BsonElement("wPortClient")]
         public int WPortClient { get; set; }
 
-        [BsonElement("wPort_Server")]
+        [BsonElement("wPortServer")]
         public int WPortServer { get; set; }
 
-        [BsonElement("logicalAddr")]
-        public ushort LogicalAddr { get; set; }
+        [BsonElement("logicalAddress")]
+        public ushort LogicalAddress { get; set; }
 
         [BsonElement("serverPhysicalDeviceID")]
         public ushort ServerPhysicalDeviceID { get; set; }
 
-        [BsonElement("physicalAddr")]
-        public int PhysicalAddr { get; set; }
+        [BsonElement("physicalAddress")]
+        public int PhysicalAddress { get; set; }
 
         [BsonElement("clientID")]
         public byte ClientID { get; set; }
+
+        [BsonElement("authMech")]
+        public byte AuthenticationMechanism { get; set; }
 
         [BsonElement("authTagLen")]
         public byte AuthTagLen { get; set; }
@@ -135,38 +196,14 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("windowRx")]
         public byte WindowRx { get; set; }
 
-        [BsonElement("InfoLenTx")]
+        [BsonElement("infoLenTx")]
         public byte InfoLenTx { get; set; }
 
-        [BsonElement("InfoLenRx")]
+        [BsonElement("infoLenRx")]
         public byte InfoLenRx { get; set; }
 
         [BsonElement("appContext")]
-        public int AppContext { get; set; }
-
-        [BsonElement("passwd")]
-        public string Passwd { get; set; }
-
-        [BsonElement("HLSKeyPassword")]
-        public string HLSKeyPassword { get; set; }
-
-        [BsonElement("clientChallengeLen")]
-        public uint ClientChallengeLen { get; set; }
-
-        [BsonElement("dedicatedKey")]
-        public string DedicatedKey { get; set; }
-
-        [BsonElement("clientChallengeKey")]
-        public string ClientChallengeKey { get; set; }
-
-        [BsonElement("clientSystemTitle")]
-        public string ClientSystemTitle { get; set; }
-
-        [BsonElement("authenticationKey")]
-        public string AuthenticationKey { get; set; }
-
-        [BsonElement("encryptionKey")]
-        public string EncryptionKey { get; set; }
+        public byte AppContext { get; set; }
 
         [BsonElement("securityObjectVer")]
         public int SecurityObjectVer { get; set; }
@@ -183,24 +220,73 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("AARQSecurityControl")]
         public byte AARQSecurityControl { get; set; }
 
-        [BsonElement("frameCounter")]
-        public uint FrameCounter { get; set; }
-
         [BsonElement("secSuite")]
-        public int SecSuite { get; set; }
+        public byte SecSuite { get; set; }
 
-        [BsonElement("maxAPDU")]
+        [BsonElement("maximumAPDU")]
         public ushort MaximumAPDU { get; set; }
 
-        [BsonElement("UserID")]
+        [BsonElement("userID")]
         public byte UserID { get; set; }
 
         [BsonElement("userFramectr")]
-        public int UserFramectr { get; set; }
+        public uint UserFramectr { get; set; }
 
         [BsonElement("secPolicyMenu")]
         public SecPolicyMenu SecPolicyMenu { get; set; }
     }
+
+    public class SecurityKeys
+    {
+        [BsonElement("password")]
+        public string password { get; set; }
+
+        [BsonElement("HLSKeyPassword")]
+        public string HLSKeyPassword { get; set; }
+
+        [BsonElement("clientChallengeLen")]
+        public uint ClientChallengeLen { get; set; }
+
+        [BsonElement("dedicatedKey")]
+        public string DedicatedKey { get; set; }
+
+        [BsonElement("clientChallengeKey")]
+        public string ClientChallengeKey { get; set; }
+
+        [BsonElement("clientSystemTitle")]
+        public string ClientSystemTitle { get; set; }
+
+        [BsonElement("serverSystemTitle")]
+        public string ServerSystemTitle { get; set; }
+
+        [BsonElement("authenticationKey")]
+        public string AuthenticationKey { get; set; }
+
+        [BsonElement("encryptionKey")]
+        public string EncryptionKey { get; set; }
+
+        [BsonElement("globalKey")]
+        public string GlobalKey { get; set; }
+    }
+
+    public class Associasion
+    {
+        [BsonElement("secSuite")]
+        public byte SecSuite { get; set; }
+
+        [BsonElement("appContext")]
+        public byte AppContext { get; set; }
+
+        [BsonElement("securityPolicy")]
+        public byte SecurityPolicy { get; set; }
+
+        [BsonElement("AARQSecurityControl")]
+        public byte AARQSecurityControl { get; set; }
+
+        [BsonElement("authenticationMechanism")]
+        public byte AuthenticationMechanism { get; set; }
+    }
+
     public class SecPolicyMenu
     {
         [BsonElement("selectMenu")]

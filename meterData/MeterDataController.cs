@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectAPI.SchemaModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectAPI.meterData
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-
     public class MeterDataController(IMeterData _MeterDataInterface) : ControllerBase
     {
         private readonly IMeterData MeterDataInterface = _MeterDataInterface;

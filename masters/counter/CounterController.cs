@@ -3,9 +3,11 @@ using ProjectAPI.masters.counter;
 using ProjectAPI.SchemaModel;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectAPI.masters.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CounterController(ICounter counterService) : ControllerBase

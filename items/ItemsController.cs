@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectAPI.SchemaModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectAPI.items
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ItemsController(IItems itemsServices) : ControllerBase

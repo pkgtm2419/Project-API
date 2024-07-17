@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectAPI.SchemaModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectAPI.masters.appliances
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AppliancesController(IAppliances appliances) : ControllerBase

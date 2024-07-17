@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectAPI.masters.meter;
 using ProjectAPI.SchemaModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectAPI.masters.obis
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OBISCodeController(IOBISCode Interface) : ControllerBase

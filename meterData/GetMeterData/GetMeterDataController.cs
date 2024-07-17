@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectAPI.SchemaModel;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectAPI.meterData.GetMeterData
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GetMeterDataController(IGetMeterData getMeterDataInterface, IMeterData _MeterDataInterface) : ControllerBase
