@@ -2,18 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectAPI.SchemaModel;
 
-namespace ProjectAPI.masters.item
+namespace ProjectAPI.masters.Users
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemController(IItem ItemServices) : ControllerBase
+    public class UsersController(IUsers users) : ControllerBase
     {
-        private readonly IItem _itemsServices = ItemServices;
-
         [HttpGet]
-        public async Task<ActionResult<ResItems>> GetItemsAsync()
+        public async Task<ActionResult<ResUser>> GetUsers()
         {
-            var res = await _itemsServices.GetItemsAsync();
+            var res = await users.GetUserAsync();
             return res.status switch
             {
                 200 => Ok(res),

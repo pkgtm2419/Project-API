@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectAPI.masters.customer;
 using ProjectAPI.SchemaModel;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectAPI.masters.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomerController(ICustomer customer) : ControllerBase

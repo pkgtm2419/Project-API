@@ -16,8 +16,8 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("companyName")]
         public string CompanyName { get; set; }
 
-        [BsonElement("address")]
-        public Address Address { get; set; }
+        [BsonElement("ddress")]
+        public UserAddress Address { get; set; }
 
         [BsonElement("gstNo")]
         public string GstNo { get; set; }
@@ -44,7 +44,7 @@ namespace ProjectAPI.SchemaModel
         public DateTime CreatedAt { get; set; }
     }
 
-    public class Address
+    public class UserAddress
     {
         [BsonElement("city")]
         public string City { get; set; }

@@ -1,20 +1,21 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using ProjectAPI.masters.customer;
 using ProjectAPI.SchemaModel;
 
-namespace ProjectAPI.masters.item
+namespace ProjectAPI.masters.Users
 {
-    public class ItemServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : IItem
+    public class UsersServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : IUsers
     {
-        private readonly IMongoCollection<ItemsModel> _item = database.GetCollection<ItemsModel>(settings.Value.items);
+        private readonly IMongoCollection<UsersModel> _Users = database.GetCollection<UsersModel>(settings.Value.mst_user);
 
-        public async Task<ResItems> GetItemsAsync()
+        public async Task<ResUser> GetUserAsync()
         {
-            ResItems res = new ResItems();
+            ResUser res = new ResUser();
             try
             {
-                FilterDefinition<ItemsModel> filter = Builders<ItemsModel>.Filter.Empty;
-                List<ItemsModel> data = await _item.Find(filter).ToListAsync();
+                FilterDefinition<UsersModel> filter = Builders<UsersModel>.Filter.Empty;
+                List<UsersModel> data = await _Users.Find(filter).ToListAsync();
                 if (data.Count > 0)
                 {
                     res.status = 200;

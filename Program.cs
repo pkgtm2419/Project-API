@@ -15,7 +15,11 @@ using ProjectAPI.meterData;
 using ProjectAPI.masters.appliances;
 using ProjectAPI.meterData.GetMeterData;
 using ProjectAPI.masters.customer;
-using ProjectAPI.masters.item;
+using ProjectAPI.masters.Users;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using ProjectAPI.UserAuthentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,19 +31,37 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", b => b.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 });
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
+
 builder.Services.Configure<MongoDBSettingsModel>(builder.Configuration.GetSection("dbConnection"));
 
 builder.Services.AddDatabaseServices(builder.Configuration);
-
+builder.Services.AddScoped<IAuthentication, AuthenticationServices> ();
 builder.Services.AddScoped<IMeter, MeterServices>();
 builder.Services.AddScoped<IOBISCode, OBISCodeServices>();
 builder.Services.AddScoped<ICounter, CounterServices>();
-builder.Services.AddScoped<IItems, ItemsServices>();
 builder.Services.AddScoped<IMeterData, MeterDataServices>();
 builder.Services.AddScoped<IAppliances, AppliancesServices>();
 builder.Services.AddScoped<IGetMeterData, GetMeterDataServices>();
 builder.Services.AddScoped<ICustomer, CustomerServices>();
-builder.Services.AddScoped<IItem, ItemServices> ();
+builder.Services.AddScoped<IItems, ItemsServices> ();
+builder.Services.AddScoped<IUsers, UsersServices> ();
 
 var app = builder.Build();
 

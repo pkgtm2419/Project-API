@@ -2,9 +2,11 @@
 using ProjectAPI.SchemaModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectAPI.masters.meter
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MeterController(IMeter meterService) : ControllerBase
