@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using ProjectAPI.UserAuthentication;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,12 +48,39 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnChallenge = context =>
+        {
+            context.HandleResponse();
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            context.Response.ContentType = "application/json";
+            var result = JsonSerializer.Serialize(new
+            {
+                status = 401,
+                message = "You are not authorized to access this resource. Please try after logging in."
+            });
+            return context.Response.WriteAsync(result);
+        },
+        OnForbidden = context =>
+        {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            context.Response.ContentType = "application/json";
+            var result = JsonSerializer.Serialize(new
+            {
+                status = 403,
+                message = "You do not have permission to access this resource. Please contact your administrator."
+            });
+            return context.Response.WriteAsync(result);
+        }
+    };
 });
 
 builder.Services.Configure<MongoDBSettingsModel>(builder.Configuration.GetSection("dbConnection"));
 
 builder.Services.AddDatabaseServices(builder.Configuration);
-builder.Services.AddScoped<IAuthentication, AuthenticationServices> ();
+builder.Services.AddScoped<IAuthentication, AuthenticationServices>();
 builder.Services.AddScoped<IMeter, MeterServices>();
 builder.Services.AddScoped<IOBISCode, OBISCodeServices>();
 builder.Services.AddScoped<ICounter, CounterServices>();
@@ -60,8 +88,8 @@ builder.Services.AddScoped<IMeterData, MeterDataServices>();
 builder.Services.AddScoped<IAppliances, AppliancesServices>();
 builder.Services.AddScoped<IGetMeterData, GetMeterDataServices>();
 builder.Services.AddScoped<ICustomer, CustomerServices>();
-builder.Services.AddScoped<IItems, ItemsServices> ();
-builder.Services.AddScoped<IUsers, UsersServices> ();
+builder.Services.AddScoped<IItems, ItemsServices>();
+builder.Services.AddScoped<IUsers, UsersServices>();
 
 var app = builder.Build();
 
@@ -78,6 +106,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
