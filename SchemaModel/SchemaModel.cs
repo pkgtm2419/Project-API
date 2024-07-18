@@ -8,6 +8,14 @@ namespace ProjectAPI.SchemaModel
         public string message { get; set; }
     }
 
+    public class JWTModel
+    {
+        public string LogInName { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+        public string CompanyID { get; set; }
+    }
+
     struct TCPUDP
     {
         [MarshalAs(UnmanagedType.LPArray, SizeConst = 40)]

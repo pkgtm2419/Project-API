@@ -2,10 +2,11 @@
 using Microsoft.Extensions.Options;
 using ProjectAPI.SchemaModel;
 using ProjectAPI._Helpers.Hashing;
+using ProjectAPI._Helpers.JWT;
 
 namespace ProjectAPI.UserAuthentication
 {
-    public class AuthenticationServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings, IHashing IHashing) : IAuthentication
+    public class AuthenticationServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings, IHashing IHashing, IJwt jwt) : IAuthentication
     {
         private readonly IMongoCollection<UsersModel> _users = database.GetCollection<UsersModel>(settings.Value.mst_user);
 
@@ -21,6 +22,14 @@ namespace ProjectAPI.UserAuthentication
                 {
                     if(verify)
                     {
+                        JWTModel jwtModel = new JWTModel()
+                        {
+                            LogInName = data.LoginName,
+                            Email = data.Email,
+                            Role = data.Role,
+                            CompanyID = data.CompanyID
+                        };
+                        res.token = jwt.GenerateToken(jwtModel);
                         res.status = 200;
                         res.data = [data];
                         res.message = "success";

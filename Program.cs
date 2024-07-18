@@ -1,27 +1,28 @@
 using ProjectAPI;
+using System.Text;
+using ProjectAPI.items;
+using System.Text.Json;
 using ProjectAPI.Database;
+using ProjectAPI.meterData;
 using ProjectAPI.SchemaModel;
 using ProjectAPI.masters.obis;
+using ProjectAPI._Helpers.JWT;
+using ProjectAPI.masters.Users;
 using ProjectAPI.masters.meter;
 using ProjectAPI.masters.counter;
+using ProjectAPI.masters.customer;
+using ProjectAPI._Helpers.Hashing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Hosting;
+using ProjectAPI.UserAuthentication;
+using ProjectAPI.masters.appliances;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Diagnostics;
+using ProjectAPI.meterData.GetMeterData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProjectAPI.items;
-using Microsoft.AspNetCore.Diagnostics;
-using ProjectAPI.meterData;
-using ProjectAPI.masters.appliances;
-using ProjectAPI.meterData.GetMeterData;
-using ProjectAPI.masters.customer;
-using ProjectAPI.masters.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using ProjectAPI.UserAuthentication;
-using System.Text.Json;
-using ProjectAPI._Helpers.Hashing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -92,6 +93,7 @@ builder.Services.AddScoped<ICustomer, CustomerServices>();
 builder.Services.AddScoped<IItems, ItemsServices>();
 builder.Services.AddScoped<IUsers, UsersServices>();
 builder.Services.AddScoped<IHashing, HashingServices>();
+builder.Services.AddScoped<IJwt, JwtServices>();
 
 var app = builder.Build();
 

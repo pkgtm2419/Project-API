@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+﻿using System.Text;
 using ProjectAPI.SchemaModel;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace ProjectAPI.UserAuthentication
 {
@@ -14,6 +11,7 @@ namespace ProjectAPI.UserAuthentication
     {
         private readonly IAuthentication _authenticationService;
         private readonly IConfiguration _configuration;
+
         public AuthenticationController(IAuthentication authenticationService, IConfiguration configuration)
         {
             _authenticationService = authenticationService;
@@ -34,23 +32,6 @@ namespace ProjectAPI.UserAuthentication
                 return BadRequest(resError);
             }
             var res = await _authenticationService.GetAuthentication(body.username, body.password, company);
-            if(res.status == 200)
-            {
-                var claims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim("username", body.username.ToString()),
-                    new Claim("email", res.data[0].Email),
-                    new Claim("role", res.data[0].Role),
-                    new Claim("companyID", res.data[0].CompanyID)
-                };
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-                var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(7), signingCredentials: signIn);
-                string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
-                res.token = tokenValue;
-            }
             return res.status switch
             {
                 200 => Ok(res),
