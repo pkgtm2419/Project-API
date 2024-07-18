@@ -10,6 +10,8 @@ namespace ProjectAPI.SchemaModel
 
     public class JWTModel
     {
+        public int? status { get; set; }
+        public string? message { get; set; }
         public string LogInName { get; set; }
         public string Email { get; set; }
         public string Role { get; set; }

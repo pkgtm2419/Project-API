@@ -23,6 +23,7 @@ using ProjectAPI.meterData.GetMeterData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ProjectAPI.masters.Role;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -94,6 +95,7 @@ builder.Services.AddScoped<IItems, ItemsServices>();
 builder.Services.AddScoped<IUsers, UsersServices>();
 builder.Services.AddScoped<IHashing, HashingServices>();
 builder.Services.AddScoped<IJwt, JwtServices>();
+builder.Services.AddScoped<IRole, RoleServices>();
 
 var app = builder.Build();
 
@@ -114,6 +116,8 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseCors("AllowAll");
 

@@ -58,7 +58,7 @@ namespace ProjectAPI.SchemaModel
         public string DateOfJoining { get; set; }
 
         [BsonElement("profilePicture")]
-        public string? ProfilePicture { get; set; }
+        public IFormFile? ProfilePicture { get; set; }
 
         [BsonElement("alerts")]
         public Alerts Alerts { get; set; }
@@ -66,11 +66,14 @@ namespace ProjectAPI.SchemaModel
         [BsonElement("isActive")]
         public bool? IsActive { get; set; } = true;
 
+        [BsonElement("roleMenus")]
+        public List<UserRoleModel>? RoleMenus { get; set; }
+
         [BsonElement("oldPasswords")]
         public List<string>? OldPasswords { get; set; }
 
-        [BsonElement("createdAt")]
-        public string? CreatedAt { get; set; }
+        [BsonElement("createdDate")]
+        public string? createdDate { get; set; }
 
         [BsonElement("createdBy")]
         public string? CreatedBy { get; set; }
@@ -125,7 +128,7 @@ namespace ProjectAPI.SchemaModel
 
     public class ReqAuthentication
     {
-        public string username { get; set; }
+        public string loginName { get; set; }
         public string password { get; set; }
     }
 }

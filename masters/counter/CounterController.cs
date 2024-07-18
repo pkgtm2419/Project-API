@@ -17,7 +17,12 @@ namespace ProjectAPI.masters.Controllers
         [HttpGet]
         public async Task<ActionResult<CounterRes>> GetCounter([FromHeader] string company)
         {
-            Console.WriteLine(company);
+            var user = HttpContext.Items["User"] as JWTModel;
+            if (user == null)
+            {
+                return Unauthorized(new { message = "Invalid token" });
+            }
+            Console.WriteLine(user.LogInName);
             var res = await _counterService.GetCounterAsync();
             return res.status switch
                 {

@@ -5,24 +5,18 @@ using Microsoft.AspNetCore.Http;
 
 namespace ProjectAPI.UserAuthentication
 {
-    [Route("api/[controller]")]
+    [Route("users")]
     [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController(IAuthentication authenticationService, IConfiguration configuration) : ControllerBase
     {
-        private readonly IAuthentication _authenticationService;
-        private readonly IConfiguration _configuration;
-
-        public AuthenticationController(IAuthentication authenticationService, IConfiguration configuration)
-        {
-            _authenticationService = authenticationService;
-            _configuration = configuration;
-        }
+        private readonly IAuthentication _authenticationService = authenticationService;
+        private readonly IConfiguration _configuration = configuration;
 
         [HttpPost]
-        [Route("login")]
-        public async Task<ActionResult<ResUser>> GetAuthenticationUser([FromBody] ReqAuthentication body, [FromHeader] string company)
+        [Route("authenticate")]
+        public async Task<ActionResult<ResUser>> GetAuthenticationUser([FromBody] ReqAuthentication body, [FromHeader] string companyID)
         {
-            if (body == null || string.IsNullOrEmpty(body.username) || string.IsNullOrEmpty(body.password))
+            if (body == null || string.IsNullOrEmpty(body.loginName) || string.IsNullOrEmpty(body.password))
             {
                 var resError = new ResUser
                 {
@@ -31,7 +25,7 @@ namespace ProjectAPI.UserAuthentication
                 };
                 return BadRequest(resError);
             }
-            var res = await _authenticationService.GetAuthentication(body.username, body.password, company);
+            var res = await _authenticationService.GetAuthentication(body.loginName, body.password, companyID);
             return res.status switch
             {
                 200 => Ok(res),
@@ -42,7 +36,7 @@ namespace ProjectAPI.UserAuthentication
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult<ResUser>> CreateUser([FromBody] UsersModel body, [FromHeader] string company)
+        public async Task<ActionResult<ResUser>> CreateUser([FromForm] UsersModel body, [FromHeader] string company)
         {
             if (body == null || string.IsNullOrEmpty(body.LoginName) || string.IsNullOrEmpty(body.Password))
             {
