@@ -19,7 +19,11 @@ namespace ProjectAPI.meterData.GetMeterData
             var meter = await MeterDataInterface.MeterExist(body.meterID.ToString());
             if (meter.Count == 0)
             {
-                return BadRequest("Meter does not exist");
+                return BadRequest(new ResStatus
+                {
+                    status = 400,
+                    message = "Meter doesn't exist"
+                });
             }
             var data = await _getMeterDataInterface.GetAssociationData(body, meter);
             return Ok(data);

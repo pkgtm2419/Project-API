@@ -24,6 +24,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ProjectAPI.masters.Role;
+using ProjectAPI.Dashboard;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,6 +85,7 @@ builder.Services.Configure<MongoDBSettingsModel>(builder.Configuration.GetSectio
 
 builder.Services.AddDatabaseServices(builder.Configuration);
 builder.Services.AddScoped<IAuthentication, AuthenticationServices>();
+builder.Services.AddScoped<IDashboard, DashboardServices>();
 builder.Services.AddScoped<IMeter, MeterServices>();
 builder.Services.AddScoped<IOBISCode, OBISCodeServices>();
 builder.Services.AddScoped<ICounter, CounterServices>();
@@ -105,7 +107,7 @@ if (app.Environment.IsDevelopment())
     {
         return new ResStatus
         {
-            status = true,
+            status = 200,
             message = "Welcome to the landing page!"
         };
     });

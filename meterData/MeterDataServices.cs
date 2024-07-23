@@ -24,7 +24,7 @@ namespace ProjectAPI.meterData
                 } else
                 {
                     res.status = 404;
-                    res.message = "Not Found";
+                    res.message = "Meter doesn't have data";
                 }
             } catch (Exception ex) {
                 res.status = 500;

@@ -128,7 +128,7 @@ namespace ProjectAPI.SchemaModel
         public ushort ChannelNo { get; set; }
 
         [BsonElement("baudRate")]
-        public int BaudRate { get; set; }
+        public uint BaudRate { get; set; }
 
         [BsonElement("serviceClass")]
         public byte ServiceClass { get; set; }

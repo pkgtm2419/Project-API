@@ -12,12 +12,12 @@ namespace ProjectAPI.masters.Role
             _roles = database.GetCollection<UserRoleModel>(settings.Value.mst_role);
         }
 
-        public async Task<ResRoleMenu> GetRole()
+        public async Task<ResRoleMenu> GetRole(string companyID)
         {
             ResRoleMenu res = new ResRoleMenu();
             try
             {
-                FilterDefinition<UserRoleModel> filter = Builders<UserRoleModel>.Filter.Empty;
+                FilterDefinition<UserRoleModel> filter = Builders<UserRoleModel>.Filter.Eq("companyID", companyID);
                 List<UserRoleModel> data = await _roles.Find(filter).ToListAsync();
                 if (data.Count > 0)
                 {

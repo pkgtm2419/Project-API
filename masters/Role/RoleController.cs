@@ -25,7 +25,7 @@ namespace ProjectAPI.masters.Role
         [HttpGet]
         public async Task<ActionResult<ResRoleMenu>> GetRoles([FromHeader] string companyID, JWTModel? User)
         {
-            var res = await _role.GetRole();
+            var res = await _role.GetRole(companyID);
             return res.Status switch
             {
                 200 => Ok(res),

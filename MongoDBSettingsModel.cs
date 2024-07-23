@@ -6,6 +6,7 @@
         public string DataBaseName { get; set; }
         public string counter { get; set; }
         public string mst_meter { get; set; }
+        public string dlsmData { get; set; }
         public string mst_customer { get; set; }
         public string mst_user { get; set; }
         public string mst_role { get; set; }

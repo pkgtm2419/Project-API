@@ -41,6 +41,7 @@ using DLMS_CLIENT.DLMSStruct;
 using DLMS_SECURITY;
 using ProjectAPI.SchemaModel;
 using ProjectAPI;
+using ProjectAPI._Helpers.Library;
 
 namespace ProjectAPI
 {

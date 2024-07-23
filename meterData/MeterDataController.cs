@@ -30,14 +30,13 @@ namespace ProjectAPI.meterData
                 return NotFound(new ResMeterData
                 {
                     status = 404,
-                    message = "Meter is not exist"
+                    message = "Meter doesn't exist"
                 });
             }
         }
 
         public async Task<List<MeterModel>> MeterExist(string meterID)
         {
-            Console.WriteLine(meterID);
             return await MeterDataInterface.MeterExist(meterID);
         }
     }
