@@ -1,27 +1,26 @@
-﻿using MongoDB.Driver;
-using Microsoft.Extensions.Options;
-using ProjectAPI.SchemaModel;
-using ProjectAPI._Helpers.Hashing;
-using ProjectAPI._Helpers.JWT;
-using Microsoft.AspNetCore.Hosting;
-using ProjectAPI.masters.Role;
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using WinDLMSClientApp._Helpers.Hashing;
+using WinDLMSClientApp._Helpers.JWT;
+using WinDLMSClientApp._Models;
+using WinDLMSClientApp.Masters.Roles;
 
-namespace ProjectAPI.UserAuthentication
+namespace WinDLMSClientApp.Users
 {
     public class AuthenticationServices(
-        IMongoDatabase database, 
-        IOptions<MongoDBSettingsModel> settings, 
-        IHashing IHashing, 
-        IJwt jwt, 
+        IMongoDatabase database,
+        IOptions<MongoDBSettingsModel> settings,
+        IHashing IHashing,
+        IJWT jwt,
         IWebHostEnvironment _webHostEnvironment,
-        IRole _Role
+        IRoles _Roles
     ) : IAuthentication
     {
         private readonly IMongoCollection<UsersModel> _users = database.GetCollection<UsersModel>(settings.Value.mst_user);
 
-        public async Task<ResUser> GetAuthentication(string username, string password, string companyID)
+        public async Task<UsersModel> GetAuthentication(string username, string password, string companyID)
         {
-            ResUser res = new ResUser();
+            UsersModel res = new UsersModel();
             try
             {
                 FilterDefinition<UsersModel> filter = Builders<UsersModel>.Filter.Where(x => x.LoginName == username && x.IsActive == true && x.CompanyID == companyID);
@@ -29,7 +28,7 @@ namespace ProjectAPI.UserAuthentication
                 bool verify = IHashing.VerifyHash(data.Password, password);
                 if (data != null)
                 {
-                    if(verify)
+                    if (verify)
                     {
                         JWTModel jwtModel = new JWTModel()
                         {
@@ -38,19 +37,20 @@ namespace ProjectAPI.UserAuthentication
                             Role = data.Role,
                             CompanyID = data.CompanyID
                         };
-                        var roleData = await _Role.GetLogInUserRole(data.UseType, data.Role);
-                        if(roleData.Status == 200)
+                        res = data;
+                        var roleData = await _Roles.GetLogInUserRole(data.UseType, data.Role);
+                        if (roleData.Status == 200)
                         {
-                            data.RoleMenus = roleData.Data;
-                        } 
+                            data.RoleMenus = roleData.Data[0].RoleMenus;
+                        }
                         else
                         {
                             throw new Exception(roleData.Message);
                         }
                         res.token = jwt.GenerateToken(jwtModel);
                         res.status = 200;
-                        res.data = [data];
                         res.message = "success";
+                        res.Password = null;
                     }
                     else
                     {

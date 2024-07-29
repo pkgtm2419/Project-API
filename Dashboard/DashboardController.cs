@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using ProjectAPI.SchemaModel;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.Dashboard
+namespace WinDLMSClientApp.Dashboard
 {
     [Authorize]
     [Route("[controller]")]

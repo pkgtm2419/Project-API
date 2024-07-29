@@ -1,10 +1,10 @@
-﻿using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.UserAuthentication
+namespace WinDLMSClientApp.Users
 {
     public interface IAuthentication
     {
-        Task<ResUser> GetAuthentication(string username, string password, string company);
+        Task<UsersModel> GetAuthentication(string username, string password, string company);
         Task<ResUser> CreateUser(UsersModel user);
     }
 }

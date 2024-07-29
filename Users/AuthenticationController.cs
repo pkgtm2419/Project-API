@@ -1,9 +1,9 @@
-﻿using System.Text;
-using ProjectAPI.SchemaModel;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using MongoDB.Driver.Core.Authentication;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.UserAuthentication
+namespace WinDLMSClientApp.Users
 {
     [Route("users")]
     [ApiController]

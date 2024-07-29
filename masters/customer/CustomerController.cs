@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectAPI.masters.customer;
-using ProjectAPI.SchemaModel;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.Controllers
+namespace WinDLMSClientApp.Masters.Customer
 {
     [Authorize]
     [Route("api/[controller]")]

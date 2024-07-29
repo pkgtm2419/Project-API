@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using ProjectAPI.SchemaModel;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.counter
+namespace WinDLMSClientApp.Masters.Counter
 {
     public class CounterServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : ICounter
     {

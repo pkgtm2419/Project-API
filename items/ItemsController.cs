@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectAPI.SchemaModel;
-using Microsoft.AspNetCore.Authorization;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.items
+namespace WinDLMSClientApp.Items
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -17,11 +17,11 @@ namespace ProjectAPI.items
         {
             var res = await _itemsServices.GetItems();
             return res.status switch
-                {
-                    200 => Ok(res),
-                    404 => NotFound(res),
-                    _ => StatusCode(500, res)
-                };
+            {
+                200 => Ok(res),
+                404 => NotFound(res),
+                _ => StatusCode(500, res)
+            };
         }
     }
 }

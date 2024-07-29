@@ -1,6 +1,6 @@
-﻿using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.appliances
+namespace WinDLMSClientApp.Masters.Appliances
 {
     public interface IAppliances
     {

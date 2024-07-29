@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using ProjectAPI.masters.customer;
-using ProjectAPI.SchemaModel;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.Users
+namespace WinDLMSClientApp.Masters.Users
 {
     public class UsersServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : IUsers
     {

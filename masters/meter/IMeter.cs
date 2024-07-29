@@ -1,12 +1,11 @@
-﻿using ProjectAPI.SchemaModel;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.meter
+namespace WinDLMSClientApp.Masters.Meter
 {
     public interface IMeter
     {
         Task<MeterRes> GetMetersAsync();
         Task<MeterRes> GetMetersByMeterIDAsync(int meterID);
+        Task<bool> MeterExistsAsync(string meterID);
     }
 }

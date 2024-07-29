@@ -1,6 +1,6 @@
-﻿using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.Dashboard
+namespace WinDLMSClientApp.Dashboard
 {
     public interface IDashboard
     {

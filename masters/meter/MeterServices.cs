@@ -1,10 +1,8 @@
-﻿using MongoDB.Driver;
-using ProjectAPI.SchemaModel;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.meter
+namespace WinDLMSClientApp.Masters.Meter
 {
     public class MeterServices : IMeter
     {
@@ -69,6 +67,20 @@ namespace ProjectAPI.masters.meter
                 Console.WriteLine($"Error: {ex.Message}");
             }
             return res;
+        }
+
+        public async Task<bool> MeterExistsAsync(string meterID)
+        {
+            try
+            {
+                FilterDefinition<MeterModel> filter = Builders<MeterModel>.Filter.Eq("meterID", meterID);
+                List<MeterModel> data = await _mst_meters.Find(filter).ToListAsync();
+                return data.Count > 0;
+            } 
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.Users
+namespace WinDLMSClientApp.Masters.Users
 {
     public interface IUsers
     {

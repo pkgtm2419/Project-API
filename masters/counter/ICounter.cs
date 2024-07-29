@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.counter
+namespace WinDLMSClientApp.Masters.Counter
 {
     public interface ICounter
     {

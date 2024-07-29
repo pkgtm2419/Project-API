@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ProjectAPI.masters.counter;
-using ProjectAPI.SchemaModel;
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.Controllers
+namespace WinDLMSClientApp.Masters.Counter
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -25,11 +23,11 @@ namespace ProjectAPI.masters.Controllers
             Console.WriteLine(user.LogInName);
             var res = await _counterService.GetCounterAsync();
             return res.status switch
-                {
-                    200 => Ok(res),
-                    404 => NotFound(res),
-                    _ => StatusCode(500, res)
-                };
+            {
+                200 => Ok(res),
+                404 => NotFound(res),
+                _ => StatusCode(500, res)
+            };
         }
     }
 }

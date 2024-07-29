@@ -1,6 +1,6 @@
-﻿using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.items
+namespace WinDLMSClientApp.Items
 {
     public interface IItems
     {

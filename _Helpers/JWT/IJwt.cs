@@ -1,8 +1,8 @@
-﻿using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI._Helpers.JWT
+namespace WinDLMSClientApp._Helpers.JWT
 {
-    public interface IJwt
+    public interface IJWT
     {
         string GenerateToken(JWTModel body);
     }

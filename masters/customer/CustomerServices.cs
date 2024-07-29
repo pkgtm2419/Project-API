@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using ProjectAPI.SchemaModel;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.customer
+namespace WinDLMSClientApp.Masters.Customer
 {
     public class CustomerServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : ICustomer
     {

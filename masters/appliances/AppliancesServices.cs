@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using ProjectAPI.SchemaModel;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.appliances
+namespace WinDLMSClientApp.Masters.Appliances
 {
     public class AppliancesServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : IAppliances
     {

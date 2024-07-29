@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using ProjectAPI.SchemaModel;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.items
+namespace WinDLMSClientApp.Items
 {
     public class ItemsServices : IItems
     {
@@ -20,17 +20,20 @@ namespace ProjectAPI.items
             {
                 FilterDefinition<ItemsModel> filter = Builders<ItemsModel>.Filter.Empty;
                 List<ItemsModel> data = await _items.Find(filter).ToListAsync();
-                if(data.Count > 0)
+                if (data.Count > 0)
                 {
                     res.status = 200;
                     res.data = data;
                     res.message = "Success";
-                } else
+                }
+                else
                 {
                     res.status = 404;
                     res.message = "Not Found";
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 res.status = 500;
                 res.message = ex.Message;
                 Console.WriteLine(ex.Message);

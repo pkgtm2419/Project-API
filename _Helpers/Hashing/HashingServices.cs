@@ -1,12 +1,12 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace ProjectAPI._Helpers.Hashing
+namespace WinDLMSClientApp._Helpers.Hashing
 {
     public class HashingServices: IHashing
     {
-        private const int SaltSize = 128/8;
-        private const int KeySize = 256/8;
+        private const int SaltSize = 128 / 8;
+        private const int KeySize = 256 / 8;
         private const int Iterations = 10000;
         private static readonly HashAlgorithmName HashAlgorithm = HashAlgorithmName.SHA512;
         private const char Separator = '/';

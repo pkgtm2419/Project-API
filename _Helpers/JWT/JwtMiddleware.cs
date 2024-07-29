@@ -1,15 +1,11 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using ProjectAPI.SchemaModel;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI._Helpers.JWT
+namespace WinDLMSClientApp._Helpers.JWT
 {
-    public class JwtMiddleware(RequestDelegate next, IConfiguration configuration)
+    public class JWTMiddleware(RequestDelegate next, IConfiguration configuration)
     {
         private readonly RequestDelegate _next = next;
         private readonly IConfiguration _configuration = configuration;

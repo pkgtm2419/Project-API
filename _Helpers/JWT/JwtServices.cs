@@ -1,12 +1,12 @@
-﻿using System.Text;
-using System.Security.Claims;
-using ProjectAPI.SchemaModel;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using WinDLMSClientApp._Models;
 
-namespace ProjectAPI._Helpers.JWT
+namespace WinDLMSClientApp._Helpers.JWT
 {
-    public class JwtServices(IConfiguration configuration) : IJwt
+    public class JWTServices(IConfiguration configuration) : IJWT
     {
         private readonly IConfiguration _configuration = configuration;
 
@@ -28,7 +28,8 @@ namespace ProjectAPI._Helpers.JWT
                 var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(7), signingCredentials: signIn);
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
                 return "";
             }

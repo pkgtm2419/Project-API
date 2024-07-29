@@ -1,12 +1,9 @@
-﻿using Microsoft.Extensions.Options;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using ProjectAPI.masters.customer;
-using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
+using WinDLMSClientApp.Masters.Customer;
 
-namespace ProjectAPI.Dashboard
+namespace WinDLMSClientApp.Dashboard
 {
-    public class DashboardServices: IDashboard
+    public class DashboardServices : IDashboard
     {
         private readonly ICustomer _customerServices;
 
@@ -24,7 +21,6 @@ namespace ProjectAPI.Dashboard
                 res.status = result.status;
                 res.message = result.message;
                 CustomerDashboardData data = new CustomerDashboardData();
-                // data.CustomerSegment = result.data;
                 List<CustomerDashboardData> dashboardList = new List<CustomerDashboardData>
                 {
                     data

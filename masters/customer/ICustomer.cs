@@ -1,6 +1,6 @@
-﻿using ProjectAPI.SchemaModel;
+﻿using WinDLMSClientApp._Models;
 
-namespace ProjectAPI.masters.customer
+namespace WinDLMSClientApp.Masters.Customer
 {
     public interface ICustomer
     {

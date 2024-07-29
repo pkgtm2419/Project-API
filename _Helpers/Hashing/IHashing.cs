@@ -1,4 +1,4 @@
-﻿namespace ProjectAPI._Helpers.Hashing
+﻿namespace WinDLMSClientApp._Helpers.Hashing
 {
     public interface IHashing
     {
