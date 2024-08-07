@@ -18,9 +18,12 @@ namespace WinDLMSClientApp.Masters.Counter
             var user = HttpContext.Items["User"] as JWTModel;
             if (user == null)
             {
-                return Unauthorized(new { message = "Invalid token" });
+                return Unauthorized(new { status = 401, message = "Invalid token" });
             }
-            Console.WriteLine(user.LogInName);
+            if(user.CompanyID != company)
+            {
+                return Unauthorized(new { status = 401, message = "User does not belong to this data." });
+            }
             var res = await _counterService.GetCounterAsync();
             return res.status switch
             {

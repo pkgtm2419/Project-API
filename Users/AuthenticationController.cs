@@ -29,31 +29,16 @@ namespace WinDLMSClientApp.Users
             return res.status switch
             {
                 200 => Ok(res),
-                404 => NotFound(res),
-                _ => StatusCode(500, res)
-            };
-        }
-
-        [HttpPost]
-        [Route("register")]
-        public async Task<ActionResult<ResUser>> CreateUser([FromForm] UsersModel body, [FromHeader] string company)
-        {
-            if (body == null || string.IsNullOrEmpty(body.LoginName) || string.IsNullOrEmpty(body.Password))
-            {
-                var resError = new ResUser
+                404 => NotFound(new ResUser
                 {
-                    status = 400,
-                    message = "Invalid request. Username and password are required."
-                };
-                return BadRequest(resError);
-            }
-            body.CompanyID = company;
-            var res = await _authenticationService.CreateUser(body);
-            return res.status switch
-            {
-                200 => Ok(res),
-                404 => NotFound(res),
-                _ => StatusCode(500, res)
+                    status = 404,
+                    message = res.message
+                }),
+                _ => StatusCode(500, new ResUser
+                {
+                    status = 500,
+                    message = res.message
+                })
             };
         }
     }

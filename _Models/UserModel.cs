@@ -52,7 +52,7 @@ namespace WinDLMSClientApp._Models
         public string StateCode { get; set; }
 
         [BsonElement("roleIDs")]
-        public List<string> RoleIDs { get; set; }
+        public List<string>? RoleIDs { get; set; }
 
         [BsonElement("useType")]
         public string UseType { get; set; }
@@ -64,7 +64,7 @@ namespace WinDLMSClientApp._Models
         public string DateOfJoining { get; set; }
 
         [BsonElement("profilePicture")]
-        public IFormFile? ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
 
         [BsonElement("alerts")]
         public Alerts Alerts { get; set; }
@@ -101,6 +101,9 @@ namespace WinDLMSClientApp._Models
 
         [BsonElement("zone")]
         public string Zone { get; set; }
+
+        [BsonElement("subzone")]
+        public string SubZone { get; set; }
 
         [BsonElement("pinCode")]
         public int PinCode { get; set; }

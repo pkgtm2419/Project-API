@@ -4,14 +4,9 @@ using WinDLMSClientApp._Models;
 
 namespace WinDLMSClientApp.Masters.Company
 {
-    public class CompanyServices : ICompany
+    public class CompanyServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings) : ICompany
     {
-        private readonly IMongoCollection<CompanyModel> _company;
-
-        public CompanyServices(IMongoDatabase database, IOptions<MongoDBSettingsModel> settings)
-        {
-            _company = database.GetCollection<CompanyModel>(settings.Value.mst_company);
-        }
+        private readonly IMongoCollection<CompanyModel> _company = database.GetCollection<CompanyModel>(settings.Value.mst_company);
 
         public async Task<ResCompany> GetCompanyAsync()
         {

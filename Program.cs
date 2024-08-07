@@ -28,6 +28,7 @@ namespace WinDLMSClientApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var JWTDetails = builder.Configuration.GetSection("Jwt");
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddCors(options =>
@@ -39,20 +40,23 @@ namespace WinDLMSClientApp
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
+                opt.SaveToken = true;
+                opt.RequireHttpsMetadata = true;
+                opt.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    ValidIssuer = JWTDetails["Issuer"],
+                    ValidAudience = JWTDetails["Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTDetails.GetSection("Key").Value!))
                 };
 
-                options.Events = new JwtBearerEvents
+                opt.Events = new JwtBearerEvents
                 {
                     OnChallenge = context =>
                     {
@@ -115,6 +119,20 @@ namespace WinDLMSClientApp
             app.UseAuthorization();
             app.UseMiddleware<JWTMiddleware>();
             app.UseCors("AllowAll");
+            app.UseStatusCodePages(context =>
+            {
+                if (context.HttpContext.Response.StatusCode == 404)
+                {
+                    context.HttpContext.Response.ContentType = "application/json";
+                    var errorResponse = new
+                    {
+                        status = 404,
+                        message = "The requested resource was not found."
+                    };
+                    return context.HttpContext.Response.WriteAsJsonAsync(errorResponse);
+                }
+                return Task.CompletedTask;
+            });
             app.UseExceptionHandler(errorApp =>
             {
                 errorApp.Run(async context =>
@@ -133,21 +151,6 @@ namespace WinDLMSClientApp
                         await context.Response.WriteAsJsonAsync(errorResponse);
                     }
                 });
-            });
-
-            app.UseStatusCodePages(context =>
-            {
-                if (context.HttpContext.Response.StatusCode == 404)
-                {
-                    context.HttpContext.Response.ContentType = "application/json";
-                    var errorResponse = new
-                    {
-                        status = 404,
-                        message = "The requested resource was not found."
-                    };
-                    return context.HttpContext.Response.WriteAsJsonAsync(errorResponse);
-                }
-                return Task.CompletedTask;
             });
             app.MapControllers();
             app.Run();

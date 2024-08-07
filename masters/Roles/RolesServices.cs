@@ -73,9 +73,9 @@ namespace WinDLMSClientApp.Masters.Roles
             ResRoleMenu res = new ResRoleMenu();
             try
             {
-                FilterDefinition<UserRoleModel> filter = Builders<UserRoleModel>.Filter.Eq("useType", useType) & Builders<UserRoleModel>.Filter.Eq("code", code);
+                FilterDefinition<UserRoleModel> filter = Builders<UserRoleModel>.Filter.Where(x => x.UseType == useType && x.Code == code && x.IsActive == true);
                 List<UserRoleModel> data = await _roles.Find(filter).ToListAsync();
-                if (data.Count > 0)
+                if (data.ToList().Count > 0)
                 {
                     res.Status = 200;
                     res.Data = data;

@@ -6,9 +6,14 @@ using WinDLMSClientApp._Models;
 
 namespace WinDLMSClientApp._Helpers.JWT
 {
-    public class JWTServices(IConfiguration configuration) : IJWT
+    public class JWTServices : IJWT
     {
-        private readonly IConfiguration _configuration = configuration;
+        private readonly IConfiguration _configuration;
+
+        public JWTServices(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public string GenerateToken(JWTModel body)
         {
@@ -25,7 +30,7 @@ namespace WinDLMSClientApp._Helpers.JWT
                 };
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(7), signingCredentials: signIn);
+                var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(30), signingCredentials: signIn);
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
             catch (Exception ex)

@@ -8,14 +8,10 @@ namespace WinDLMSClientApp.Masters.Company
     [Authorize]
     [Route("master/[controller]")]
     [ApiController]
-    public class CompanyController : ControllerBase
+    public class CompanyController(ICompany companyServices) : ControllerBase
     {
-        private readonly ICompany _companyServices;
-        public CompanyController(ICompany companyServices)
-        {
-            _companyServices = companyServices;
-        }
-        
+        private readonly ICompany _companyServices = companyServices;
+
         [HttpGet("getCompany")]
         public async Task<ActionResult<ResCompany>> getCompany()
         {
